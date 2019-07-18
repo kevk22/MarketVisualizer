@@ -4,12 +4,11 @@ const axios = require("axios");
 
 router.get("/test", (req, res) => res.json({ msg: "This is the stocks route" }));
 
-router.get('/global_trends', (req, res) => {
+router.get('/market_cap', (req, res) => {
 
-    const getTweets = () => {
-        let url = `https://api.twitter.com/1.1/trends/place.json?id=2487956`;
-        let token = keys.twitterToken;
-        return axios.get(url, { headers: { "Authorization": `Bearer ${token}` } })
+    const getMarketCap = (ticker) => {
+        let url = `https://sandbox.iexapis.com/stable/stock/${ticker}/quote?token=Tsk_78aa1543668d4b2a94d63cf512714326`;
+        return axios.get(url)
             .then(response => response.data);
     };
 
@@ -23,3 +22,6 @@ router.get('/global_trends', (req, res) => {
 });
 
 module.exports = router;
+
+// let token = keys.twitterToken;
+// return axios.get(url, { headers: { "Authorization": `Bearer ${token}` } })
