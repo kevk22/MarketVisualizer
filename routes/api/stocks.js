@@ -4,20 +4,24 @@ const axios = require("axios");
 
 router.get("/test", (req, res) => res.json({ msg: "This is the stocks route" }));
 
-router.get('/market_cap', (req, res) => {
+router.get("/:ticker", (req, res) => {
+    console.log(req);
+
+    let ticker = req.params.ticker;
 
     const getMarketCap = (ticker) => {
         let url = `https://sandbox.iexapis.com/stable/stock/${ticker}/quote?token=Tsk_78aa1543668d4b2a94d63cf512714326`;
         return axios.get(url)
-            .then(response => response.data);
+            .then(response => response.data)
+            .catch(err => console.log(err));
     };
 
-    getTweets().then(data => {
+    getMarketCap(ticker).then(data => {    
         res.json({
             message: "Request received!",
             data
-        })
-    })
+        });
+    }).catch(err => console.log(err));
 
 });
 
