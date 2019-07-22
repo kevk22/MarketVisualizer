@@ -1,5 +1,6 @@
  h1 {
      color: #1abc9c;
+     /* color: #397262; */
      font-family:  'Raleway';
      font-weight: normal;
      font-size: 1.75em;
@@ -9,3 +10,39 @@
      text-align: center;
      text-transform: uppercase;
  }
+
+ #chart-area svg {
+	margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+
+.navbar-brand {
+	height: 60px;
+	padding: 5px 0px;
+}
+
+#reset-button, #play-button, #slider-div {
+	float: left;
+    margin-right:10px;
+    visibility: hidden;
+}
+
+#slider-div {
+	width:300px;
+	margin-left:10px;
+}
+
+#reset-button, #play-button {
+	margin-top: 5px;
+    margin-bottom:10px;
+    visibility: hidden;
+}
+
+#sector-select {
+	width: 150px;
+	float:right;
+    margin-top:5px;
+    visibility: hidden;
+}

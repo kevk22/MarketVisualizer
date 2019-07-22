@@ -5,12 +5,16 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --watch --mode=development"
+    "start": "webpack --watch --mode=development",
+    "server": "nodemon app.js"
   },
+  "proxy": "http://localhost:5000",
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.0",
     "d3": "^5.9.7",
+    "express": "^4.17.1",
     "webpack": "^4.36.1",
     "webpack-cli": "^3.3.6"
   }

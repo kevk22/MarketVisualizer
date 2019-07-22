@@ -5,10 +5,11 @@ const app = express();
 
 app.get("/", (req, res) => res.send("Hello World"));
 app.use("/api/stocks", stocks);
+app.use(express.static('frontend'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static('frontend'));
+
 
 const port = process.env.PORT || 5000;
 
