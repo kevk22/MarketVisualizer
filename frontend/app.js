@@ -20,7 +20,7 @@ var sectorColor = d3.scaleOrdinal(d3.schemeBrBG[11]);
 
 var margin = { left: 100, right: 20, top: 50, bottom: 150 };
 
-var width = 1000 - margin.left - margin.right,
+var width = 1200 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
 var g = d3.select("#svg-container")
@@ -33,7 +33,7 @@ var g = d3.select("#svg-container")
 
 var x = d3.scaleLinear()
     .range([0, width])
-    .domain([0, 750]);
+    .domain([0, 600]);
     
 var y = d3.scaleLinear()
     .range([height, 0])
@@ -59,6 +59,7 @@ g.append("text")
     .attr("y", height + 140)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle")
+    .attr("font", 'Raleway')
     .text("52 Week Low");
 
 // Y Label
@@ -67,19 +68,16 @@ g.append("text")
     .attr("x", - (height / 2))
     .attr("y", -60)
     .attr("font-size", "20px")
+    .attr("font", 'Raleway')
     .attr("text-anchor", "middle")
     .attr("transform", "rotate(-90)")
     .text("52 Week High");
 
 
 var legend = g.append("g")
-    .attr("transform", "translate(" + (width - 10) +
-        "," + (height - 125) + ")");
-
-// d3.schemePuBuGn[9]
-    // .range()
-    // .range(["#55efc4", "#81ecec", "#74b9ff", "#a29bfe", "#00b894", "#00cec9", "#b2bec3", "#fab1a0", "#ff7675",
-    //     "#ffeaa7", "#2d3436"]);
+    .attr("transform", "translate(" + (width - 20) +
+        "," + (height - 250) + ")");
+    
 
 sectors.forEach(function (sector, i) {
     var legendRow = legend.append("g")
@@ -100,7 +98,6 @@ sectors.forEach(function (sector, i) {
 
 
 
-var t = d3.transition().duration(200);
 
 // Array to hold each individual stock object 
 let stockObjs = [];
@@ -118,71 +115,43 @@ for (let i = 0; i < tickerData.length; i++) {
         }
     });
     
-    // Add buy, hold, sell ratings based on recent analyst recommendations
-    getRating(curTicker)
-    .then(stock => {
-        if (stock.data.data !== undefined && stock.data.data[0].ratingBuy !== undefined) {
-            stockObjs[stockObjs.length - 1].ratingBuy = stock.data.data[0].ratingBuy;
-            stockObjs[stockObjs.length - 1].ratingHold = stock.data.data[0].ratingHold;
-            stockObjs[stockObjs.length - 1].ratingSell = stock.data.data[0].ratingSell;
-        }
-    });
+    // // Add buy, hold, sell ratings based on recent analyst recommendations
+    // getRating(curTicker)
+    // .then(stock => {
+    //     if (stock.data.data !== undefined && stock.data.data[0].ratingBuy !== undefined) {
+    //         stockObjs[stockObjs.length - 1].ratingBuy = stock.data.data[0].ratingBuy;
+    //         stockObjs[stockObjs.length - 1].ratingHold = stock.data.data[0].ratingHold;
+    //         stockObjs[stockObjs.length - 1].ratingSell = stock.data.data[0].ratingSell;
+    //     }
+    // });
 
-    // Add enterpise value and EBITDA metrics to set axis
-    getValue(curTicker)
-    .then(stock => {
-        if (stock.data.data !== undefined) {
-            stockObjs[stockObjs.length - 1].ebitda = stock.data.data["EBITDA"];
-            stockObjs[stockObjs.length - 1].ev = stock.data.data.enterpriseValue;
-        }
-    });
+    // // Add enterpise value and EBITDA metrics to set axis
+    // getValue(curTicker)
+    // .then(stock => {
+    //     if (stock.data.data !== undefined) {
+    //         stockObjs[stockObjs.length - 1].ebitda = stock.data.data["EBITDA"];
+    //         stockObjs[stockObjs.length - 1].ev = stock.data.data.enterpriseValue;
+    //     }
+    // });
 
-    
 }
 
-
-var tooltip = d3.select('body').append('div')
-    .style({
-        'position': 'absolute',
-        'padding': '4px',
-        'background': '#fff',
-        'border': '1px solid #000',
-        'color': '#000'
-    });
-
     
-    var myInterval = d3.interval(function(){
-        update(stockObjs);
+var myInterval = d3.interval(function(){
+    update(stockObjs);
     },200);
-    
-    
-    function update(data) {
-        console.log(data);
 
-        $("#sector-select")
-            .on("change", function () {
-                update(data[time]);
-            })
 
-        
-        
-        var stocksBySector = d3.nest()
-        .key(function(d) { return d.sector; })
-        .entries(data);
+function update(data) {
 
-        var sector = $("#sector-select").val();
-
-        var data = data.filter(function(d) {
-            if (sector == "all") { return true; }
-            else {
-                return d.sector == sector;
-            }
-        })
-
-    
     var circles = g.selectAll("circle")
         .data(data);
-    
+
+
+    var t = d3.transition()
+        .duration(2000)
+        .attr("cy", 300)
+
     circles.enter()
         .append("circle")
         .transition(t)
@@ -190,10 +159,8 @@ var tooltip = d3.select('body').append('div')
         .attr("cy", function (d) { return y(d.week52High); })
         .attr("cx", function (d) { return x(d.week52Low); })
         .attr("r", function (d) { return 5; })
-        .attr("fill", function(d) { return sectorColor(d.sector); })
-       
+        .attr("fill", function(d) { return sectorColor(d.sector); });
 
-    
 }
 
 
