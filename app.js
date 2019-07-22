@@ -2,6 +2,7 @@ const express = require("express");
 const stocks = require("./routes/api/stocks");
 const bodyParser = require('body-parser');
 const app = express();
+const path = require('path');
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/index.html'));
