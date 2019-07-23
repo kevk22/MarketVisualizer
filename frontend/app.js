@@ -1,4 +1,5 @@
 import { getStock, getRating, getValue } from './util/stock_api_util';
+import { floatingTooltip } from './tooltip.js';
 let tickerData = require("./data/tickers.json");
 let industries = require("./data/industries.json");
 
@@ -97,10 +98,8 @@ sectors.forEach(function (sector, i) {
 });
 
 
-
-
 // Array to hold each individual stock object 
-let stockObjs = [];
+var stockObjs = [];
 
 // Loop through JSON tickers to make an API call to each constituent in the s&p500
 for (let i = 0; i < tickerData.length; i++) {
@@ -136,31 +135,58 @@ for (let i = 0; i < tickerData.length; i++) {
 
 }
 
+//Init tooltip 
+var tooltip = floatingTooltip('gates_tooltip', 240);
     
+
+//Function called on mouseover to display the
+//details of a bubble in the tooltip.
+function showDetail(d) {
+    // change outline to indicate hover state.
+    d3.select(this).attr('stroke', 'black');
+    let content = '<span class="name">Company: </span><span class="value">' +
+    d.companyName + '</span><br/>' +
+    '<span class="name">PE Ratio: </span><span class="value">' +
+    d.peRatio + '</span>';
+    
+    tooltip.showTooltip(content, d3.event);
+}
+
+// Hides tooltip
+function hideDetail(d) {
+    // reset outline
+    d3.select(this);
+        // .attr('stroke', d3.rgb(fillColor(d.sector)).darker());
+    tooltip.hideTooltip();
+}
+
 var myInterval = d3.interval(function(){
     update(stockObjs);
     },200);
 
-
-function update(data) {
-
-    var circles = g.selectAll("circle")
-        .data(data);
-
-
-    var t = d3.transition()
-        .duration(2000)
-        .attr("cy", 300)
-
-    circles.enter()
+    
+    function update(data) {
+        console.log(stockObjs);
+        
+        var circles = g.selectAll("circle")
+        .data(data)
+        .on('mouseover', showDetail)
+        .on('mouseout', hideDetail);
+        
+        
+        var t = d3.transition()
+            .duration(2000)
+            .attr("cy", 300);
+        
+        circles.enter()
         .append("circle")
-        .transition(t)
         // .attr("cy", function (d) { return y(d.marketCap / 100000000); })
+        .transition(t)
         .attr("cy", function (d) { return y(d.week52High); })
         .attr("cx", function (d) { return x(d.week52Low); })
         .attr("r", function (d) { return 5; })
         .attr("fill", function(d) { return sectorColor(d.sector); });
-
+      
 }
 
 
