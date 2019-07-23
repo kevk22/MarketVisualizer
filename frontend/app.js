@@ -166,7 +166,6 @@ var myInterval = d3.interval(function(){
 
     
     function update(data) {
-        console.log(stockObjs);
         
         var circles = g.selectAll("circle")
         .data(data)
