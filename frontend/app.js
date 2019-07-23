@@ -143,7 +143,7 @@ var tooltip = floatingTooltip('gates_tooltip', 240);
 //details of a bubble in the tooltip.
 function showDetail(d) {
     // change outline to indicate hover state.
-    d3.select(this).attr('stroke', 'black');
+    // d3.select(this).attr('stroke', 'black');
     let content = '<span class="name">Company: </span><span class="value">' +
     d.companyName + '</span><br/>' +
     '<span class="name">PE Ratio: </span><span class="value">' +
