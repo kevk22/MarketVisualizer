@@ -44,7 +44,7 @@
 	width: 150px;
 	float:right;
     margin-top:5px;
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 
 #legend {
