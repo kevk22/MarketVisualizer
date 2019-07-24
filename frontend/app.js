@@ -162,8 +162,6 @@ function hideDetail(d) {
 
 var myInterval = d3.interval(function(){
     update(stockObjs);
-    console.log(stockObjs);
-    
     },200);
 
     
