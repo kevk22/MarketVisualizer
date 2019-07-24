@@ -38,7 +38,7 @@ var x = d3.scaleLinear()
     
 var y = d3.scaleLinear()
     .range([height, 0])
-    .domain([0, 800]);
+    .domain([0, 600]);
 
 
 var xAxisCall = d3.axisBottom(x);
@@ -61,7 +61,7 @@ g.append("text")
     .attr("font-size", "20px")
     .attr("text-anchor", "middle")
     .attr("font", 'Raleway')
-    .text("52 Week Low");
+    .text("Most Recent Closing Price");
 
 // Y Label
 g.append("text")
@@ -162,6 +162,8 @@ function hideDetail(d) {
 
 var myInterval = d3.interval(function(){
     update(stockObjs);
+    console.log(stockObjs);
+    
     },200);
 
     
@@ -182,7 +184,7 @@ var myInterval = d3.interval(function(){
         // .attr("cy", function (d) { return y(d.marketCap / 100000000); })
         .transition(t)
         .attr("cy", function (d) { return y(d.week52High); })
-        .attr("cx", function (d) { return x(d.week52Low); })
+        .attr("cx", function (d) { return x(d.previousClose); })
         .attr("r", function (d) { return 5; })
         .attr("fill", function(d) { return sectorColor(d.sector); });
       
