@@ -1,7 +1,7 @@
  h1 {
      color: #1abc9c;
      /* color: #397262; */
-     font-family:  'Raleway';
+     /* font-family:  'Raleway'; */
      font-weight: normal;
      font-size: 1.75em;
      letter-spacing: .2em;
@@ -20,7 +20,10 @@
 
 .navbar-brand {
 	height: 60px;
-	padding: 5px 0px;
+    padding: 5px 0px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 #reset-button, #play-button, #slider-div {

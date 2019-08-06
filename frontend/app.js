@@ -57,10 +57,10 @@ g.append("g")
 g.append("text")
     .attr("class", "x axis-label")
     .attr("x", width / 2)
-    .attr("y", height + 140)
-    .attr("font-size", "20px")
+    .attr("y", height + 80)
+    .attr("font-size", "25px")
     .attr("text-anchor", "middle")
-    .attr("font", 'Raleway')
+    .attr("font-family", function(d,i) {return i<5 ? "serif" : "sans-serif"; })
     .text("Most Recent Closing Price");
 
 // Y Label
@@ -68,8 +68,8 @@ g.append("text")
     .attr("class", "y axis-label")
     .attr("x", - (height / 2))
     .attr("y", -60)
-    .attr("font-size", "20px")
-    .attr("font", 'Raleway')
+    .attr("font-size", "25px")
+    .attr("font-family", function (d, i) { return i < 5 ? "serif" : "sans-serif"; })
     .attr("text-anchor", "middle")
     .attr("transform", "rotate(-90)")
     .text("52 Week High");
@@ -114,15 +114,15 @@ for (let i = 0; i < tickerData.length; i++) {
         }
     });
     
-    // // Add buy, hold, sell ratings based on recent analyst recommendations
-    // getRating(curTicker)
-    // .then(stock => {
-    //     if (stock.data.data !== undefined && stock.data.data[0].ratingBuy !== undefined) {
-    //         stockObjs[stockObjs.length - 1].ratingBuy = stock.data.data[0].ratingBuy;
-    //         stockObjs[stockObjs.length - 1].ratingHold = stock.data.data[0].ratingHold;
-    //         stockObjs[stockObjs.length - 1].ratingSell = stock.data.data[0].ratingSell;
-    //     }
-    // });
+    // Add buy, hold, sell ratings based on recent analyst recommendations
+    getRating(curTicker)
+    .then(stock => {
+        if (stock.data.data !== undefined && stock.data.data[0].ratingBuy !== undefined) {
+            stockObjs[stockObjs.length - 1].ratingBuy = stock.data.data[0].ratingBuy;
+            stockObjs[stockObjs.length - 1].ratingHold = stock.data.data[0].ratingHold;
+            stockObjs[stockObjs.length - 1].ratingSell = stock.data.data[0].ratingSell;
+        }
+    });
 
     // // Add enterpise value and EBITDA metrics to set axis
     // getValue(curTicker)
@@ -144,11 +144,17 @@ var tooltip = floatingTooltip('gates_tooltip', 240);
 function showDetail(d) {
     // change outline to indicate hover state.
     // d3.select(this).attr('stroke', 'black');
+    let buy = d.ratingBuy !== undefined ? d.ratingBuy : 0;
+    let sell = d.ratingSell !== undefined ? d.ratingSell : 0;
+
     let content = '<span class="name">Company: </span><span class="value">' +
     d.companyName + '</span><br/>' +
-    '<span class="name">PE Ratio: </span><span class="value">' +
-    d.peRatio + '</span>';
-    
+    '<span class="name">Buy Rating: </span><span class="value">' +
+    buy + '</span><br/>' + 
+    '<span class="name">Sell Rating: </span><span class="value">' +
+    sell + '</span>';
+    // ratingSell
+
     tooltip.showTooltip(content, d3.event);
 }
 
