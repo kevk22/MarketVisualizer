@@ -55,24 +55,20 @@ g.append("g")
 
 // X Label
 g.append("text")
-    .attr("class", "x axis-label")
+    .attr("class", "axis-label")
     .attr("x", width / 2)
-    .attr("y", height + 80)
-    .attr("font-size", "25px")
+    .attr("y", height + 45)
     .attr("text-anchor", "middle")
-    .attr("font-family", function(d,i) {return i<5 ? "serif" : "sans-serif"; })
     .text("Most Recent Closing Price");
 
 // Y Label
 g.append("text")
-    .attr("class", "y axis-label")
+    .attr("class", "axis-label")
     .attr("x", - (height / 2))
-    .attr("y", -60)
-    .attr("font-size", "25px")
-    .attr("font-family", function (d, i) { return i < 5 ? "serif" : "sans-serif"; })
+    .attr("y", -55)
     .attr("text-anchor", "middle")
     .attr("transform", "rotate(-90)")
-    .text("52 Week High");
+    .text("52 Week High in ($USD)");
 
 
 var legend = g.append("g")
@@ -144,16 +140,19 @@ var tooltip = floatingTooltip('gates_tooltip', 240);
 function showDetail(d) {
     // change outline to indicate hover state.
     // d3.select(this).attr('stroke', 'black');
+
     let buy = d.ratingBuy !== undefined ? d.ratingBuy : 0;
+    let hold = d.ratingHold !== undefined ? d.ratingHold : 0;
     let sell = d.ratingSell !== undefined ? d.ratingSell : 0;
 
     let content = '<span class="name">Company: </span><span class="value">' +
     d.companyName + '</span><br/>' +
     '<span class="name">Buy Rating: </span><span class="value">' +
     buy + '</span><br/>' + 
+    '<span class="name">Hold Rating: </span><span class="value">' +
+    hold + '</span><br/>' + 
     '<span class="name">Sell Rating: </span><span class="value">' +
     sell + '</span>';
-    // ratingSell
 
     tooltip.showTooltip(content, d3.event);
 }
@@ -162,7 +161,7 @@ function showDetail(d) {
 function hideDetail(d) {
     // reset outline
     d3.select(this);
-        // .attr('stroke', d3.rgb(fillColor(d.sector)).darker());
+    // .attr('stroke', d3.rgb(fillColor(d.sector)).darker());
     tooltip.hideTooltip();
 }
 
@@ -171,26 +170,26 @@ var myInterval = d3.interval(function(){
     },200);
 
     
-    function update(data) {
-        
-        var circles = g.selectAll("circle")
-        .data(data)
-        .on('mouseover', showDetail)
-        .on('mouseout', hideDetail);
-        
-        
-        var t = d3.transition()
-            .duration(2000)
-            .attr("cy", 300);
-        
-        circles.enter()
-        .append("circle")
-        // .attr("cy", function (d) { return y(d.marketCap / 100000000); })
-        .transition(t)
-        .attr("cy", function (d) { return y(d.week52High); })
-        .attr("cx", function (d) { return x(d.previousClose); })
-        .attr("r", function (d) { return 5; })
-        .attr("fill", function(d) { return sectorColor(d.sector); });
+function update(data) {
+    
+    var circles = g.selectAll("circle")
+    .data(data)
+    .on('mouseover', showDetail)
+    .on('mouseout', hideDetail);
+    
+    
+    var t = d3.transition()
+        .duration(2000)
+        .attr("cy", 300);
+    
+    circles.enter()
+    .append("circle")
+    // .attr("cy", function (d) { return y(d.marketCap / 100000000); })
+    .transition(t)
+    .attr("cy", function (d) { return y(d.week52High); })
+    .attr("cx", function (d) { return x(d.previousClose); })
+    .attr("r", function (d) { return 5; })
+    .attr("fill", function(d) { return sectorColor(d.sector); });
       
 }
 
