@@ -29,9 +29,11 @@
 .axis-label {
     /* font-family: 'Open Sans', sans-serif; */
     /* font-family: 'Oxygen', sans-serif; */
-    font-family: 'Raleway', sans-serif;
+    /* font-family: 'Raleway', sans-serif; */
+    font-family: 'Times', sans-serif;
     font-weight: 300;
-    font-size: 21px;
+    font-size: 20px;
+    color: blue;
 }
 
 #reset-button, #play-button, #slider-div {
