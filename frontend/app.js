@@ -19,7 +19,9 @@ const sectors = [
 
 var sectorColor = d3.scaleOrdinal(d3.schemeBrBG[11]);
 
-var margin = { left: 100, right: 20, top: 50, bottom: 150 };
+var margin = { left: 80, right: 35, top: 50, bottom: 150 };
+
+// top 50 bttom 150 left 100
 
 var width = 1200 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
