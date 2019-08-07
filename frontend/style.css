@@ -38,7 +38,8 @@
 .bottom-text {
     font-family: 'Amiri', serif;
     margin-top: 2.5vh;
-    color: #9b9e9e;
+    /* color: #9b9e9e; */
+    color: #505050;
     font-size: 14px;
     text-align: center;
 }
