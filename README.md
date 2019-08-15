@@ -1,3 +1,3 @@
 # MarketVisualizer
 
-![](market.gif)
+![](bigGif.gif)
