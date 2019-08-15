@@ -10,6 +10,10 @@
      text-align: center;
      text-transform: uppercase;
  }
+ 
+ html {
+     /* background-color: lightgray; */
+ }
 
  #chart-area svg {
 	margin-left: auto;
@@ -36,7 +40,8 @@
 }
 
 .bottom-text {
-    font-family: 'Amiri', serif;
+    /* font-family: 'Amiri', serif; */
+    font-family: 'Times', sans-serif;
     margin-top: 2.5vh;
     /* color: #9b9e9e; */
     color: #505050;
@@ -111,3 +116,4 @@
 .tooltip span {
     color: #35281d;
 }
+
