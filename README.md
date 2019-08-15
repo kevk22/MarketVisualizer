@@ -1,6 +1,6 @@
 # MarketVisualizer
 
-[Live Site](https://marketvisualizer.herokuapp.com/)
+## [Live Site](https://marketvisualizer.herokuapp.com/)
 
 
 ![](bigGif.gif)
