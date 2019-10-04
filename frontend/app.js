@@ -19,21 +19,10 @@ const sectors = [
 
 var sectorColor = d3.scaleOrdinal(d3.schemeBrBG[11]);
 
-var margin = { left: 80, right: 35, top: 50, bottom: 150 };
-
-// top 50 bttom 150 left 100
-
-var width = 1200 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
-
 var g = d3.select("#svg-container")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left
-        + ", " + margin.top + ")");
-
+    .append("g");
+        
 var x = d3.scaleLinear()
     .range([0, width])
     .domain([0, 600]);
@@ -48,7 +37,6 @@ g.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxisCall);
-
 
 var yAxisCall = d3.axisLeft(y);
 g.append("g")
@@ -105,7 +93,7 @@ for (let i = 0; i < tickerData.length; i++) {
 
     // Get initial stock info and add industry key-value pair to each stock object
     getStock(curTicker)
-    .then(stock => {
+    .then((stock) => {
         if (stock.data.data !== undefined) {
             stockObjs.push(stock.data.data);
             stockObjs[stockObjs.length - 1].sector = industries[stock.data.data.symbol];
@@ -114,7 +102,7 @@ for (let i = 0; i < tickerData.length; i++) {
     
     // Add buy, hold, sell ratings based on recent analyst recommendations
     getRating(curTicker)
-    .then(stock => {
+    .then((stock) => {
         if (stock.data.data !== undefined && stock.data.data[0].ratingBuy !== undefined) {
             stockObjs[stockObjs.length - 1].ratingBuy = stock.data.data[0].ratingBuy;
             stockObjs[stockObjs.length - 1].ratingHold = stock.data.data[0].ratingHold;
@@ -122,23 +110,23 @@ for (let i = 0; i < tickerData.length; i++) {
         }
     });
 
-    // // Add enterpise value and EBITDA metrics to set axis
-    // getValue(curTicker)
-    // .then(stock => {
-    //     if (stock.data.data !== undefined) {
-    //         stockObjs[stockObjs.length - 1].ebitda = stock.data.data["EBITDA"];
-    //         stockObjs[stockObjs.length - 1].ev = stock.data.data.enterpriseValue;
-    //     }
-    // });
-
+    /*
+    // Add enterpise value and EBITDA metrics to set axis
+    getValue(curTicker)
+    .then((stock) => {
+        if (stock.data.data !== undefined) {
+            stockObjs[stockObjs.length - 1].ebitda = stock.data.data["EBITDA"];
+            stockObjs[stockObjs.length - 1].ev = stock.data.data.enterpriseValue;
+        }
+    });
+    */
 }
 
 //Init tooltip 
 var tooltip = floatingTooltip('gates_tooltip', 240);
     
 
-//Function called on mouseover to display the
-//details of a bubble in the tooltip.
+//Function called on mouseover to display the details of a bubble in the tooltip
 function showDetail(d) {
     // change outline to indicate hover state.
     // d3.select(this).attr('stroke', 'black');
@@ -161,7 +149,6 @@ function showDetail(d) {
 
 // Hides tooltip
 function hideDetail(d) {
-    // reset outline
     d3.select(this);
     // .attr('stroke', d3.rgb(fillColor(d.sector)).darker());
     tooltip.hideTooltip();
@@ -170,15 +157,12 @@ function hideDetail(d) {
 var myInterval = d3.interval(function(){
     update(stockObjs);
     },200);
-
     
 function update(data) {
-    
     var circles = g.selectAll("circle")
     .data(data)
     .on('mouseover', showDetail)
     .on('mouseout', hideDetail);
-    
     
     var t = d3.transition()
         .duration(2000)
@@ -195,31 +179,26 @@ function update(data) {
       
 }
 
+/*
+Save for later 
+
+(async () => {
+    let stocks = await getAllData();
+      var circles = svg.selectAll("circle")
+            .data(stocks);
+
+        circles.enter()
+            .append("circle")
+            .attr('cx', function (d, i) {
+                return (i * 50) + 25;
+            })
+            .attr('cy', 150)
+            .attr('r', function(d){
+                return d.marketCap * .0000000001;
+            })
+            .attr('fill', 'green');
+})();
 
 
-
-
-
-
-
-// (async () => {
-//     let stocks = await getAllData();
-//       var circles = svg.selectAll("circle")
-//             .data(stocks);
-
-//         circles.enter()
-//             .append("circle")
-//             .attr('cx', function (d, i) {
-//                 return (i * 50) + 25;
-//             })
-//             .attr('cy', 150)
-//             .attr('r', function(d){
-//                 return d.marketCap * .0000000001;
-//             })
-//             .attr('fill', 'green');
-// })();
-
-
-//d3.scale.category20()
-
-
+d3.scale.category20()
+*/

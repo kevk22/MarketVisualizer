@@ -1,26 +1,19 @@
- h1 {
-     color: #1abc9c;
-     /* color: #397262; */
-     /* font-family:  'Raleway'; */
-     font-weight: normal;
-     font-size: 1.75em;
-     letter-spacing: .2em;
-     line-height: 1.1em;
-     margin:0px;
-     text-align: center;
-     text-transform: uppercase;
- }
- 
- html {
-     /* background-color: lightgray; */
- }
-
- #chart-area svg {
-	margin-left: auto;
-    margin-right: auto;
-    display: block;
+h1 {
+    color: #1abc9c;
+    font-weight: normal;
+    font-size: 1.75em;
+    letter-spacing: .2em;
+    line-height: 1.1em;
+    margin:0px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
+ #svg-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .navbar-brand {
 	height: 60px;
@@ -31,19 +24,14 @@
 }
 
 .axis-label {
-    /* font-family: 'Open Sans', sans-serif; */
-    /* font-family: 'Oxygen', sans-serif; */
-    /* font-family: 'Raleway', sans-serif; */
     font-family: 'Times', sans-serif;
     font-weight: 300;
     font-size: 20px;
 }
 
 .bottom-text {
-    /* font-family: 'Amiri', serif; */
     font-family: 'Times', sans-serif;
     margin-top: 2.5vh;
-    /* color: #9b9e9e; */
     color: #505050;
     font-size: 14px;
     text-align: center;
@@ -54,38 +42,10 @@
     margin-right: auto;
     display: block;
     width: 70vw;
+    max-width: 1200px;
     height: 10vh;
-    border: 1px dotted #1abc9c;
-    margin-top: -9vh;
-}
-
-#reset-button, #play-button, #slider-div {
-	float: left;
-    margin-right:10px;
-    visibility: hidden;
-}
-
-#slider-div {
-	width:300px;
-	margin-left:10px;
-}
-
-#reset-button, #play-button {
-	margin-top: 5px;
-    margin-bottom:10px;
-    visibility: hidden;
-}
-
-#sector-select {
-	width: 150px;
-	float:right;
-    margin-top:5px;
-    visibility: hidden;
-}
-
-#legend {
-    position: absolute;
-    bottom: 400px;
+    border: 1.5px dotted #1abc9c;
+    margin-top: -7vh;
 }
 
 .tooltip {

@@ -7,34 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Market</title>
 </head>
+
 <body>
     <h1>MarketVisualizer</h1>
-    <div id="svg-container">
-        <div class="row">
-            <div class="col-md-6">
-                <button id="play-button" class="btn btn-primary">Play</button>
-                <button id="reset-button" class="btn btn-primary">Reset</button>
-            </div>
-            <div class="col-md-6">
-                <select id="sector-select" class="form-control">
-                    <option selected value="all">All</option>
-                    <option value="Energy">Energy</option>
-                    <option value="Utilities">Utilities</option>
-                    <option value="Materials">Materials</option>
-                    <option value="Financials">Financials</option>
-                    <option value="Industrials">Industrials</option>
-                    <option value="Real Estate">Real Estate</option>
-                    <option value="Health Care">Health Care</option>
-                    <option value="Consumer Staples">Consumer Staples</option>
-                    <option value="Information Technology">Information Technology</option>
-                    <option value="Consumer Discretionary">Consumer Discretionary</option>
-                    <option value="Telecommunication Services">Telecommunication Services</option>
-                </select>
-            </div>
-    </div>
-    
-    
-
+    <div id="svg-container"></div>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./dist/bundle.js"></script>
@@ -43,6 +19,5 @@
             is grouped by sector, charted against its current price vs. 52 week high price, and given a buy/hold/sell rating by industry analysts.
         </div>
     </div>
-
 </body>
 </html>

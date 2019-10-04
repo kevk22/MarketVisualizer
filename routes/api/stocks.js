@@ -46,8 +46,8 @@ router.get("/value/:ticker", (req, res) => {
     let ticker = req.params.ticker;
 
     const getValue = (ticker) => {
-        let url2 = `https://sandbox.iexapis.com/stable/stock/${ticker}/advanced-stats?token=Tsk_78aa1543668d4b2a94d63cf512714326`;
-        return axios.get(url2)
+        let url3 = `https://sandbox.iexapis.com/stable/stock/${ticker}/advanced-stats?token=Tsk_78aa1543668d4b2a94d63cf512714326`;
+        return axios.get(url3)
             .then(response => response.data)
             .catch(err => console.log(err));
     };
@@ -56,7 +56,8 @@ router.get("/value/:ticker", (req, res) => {
         res.json({
             data
         });
-    }).catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 
 
 });
